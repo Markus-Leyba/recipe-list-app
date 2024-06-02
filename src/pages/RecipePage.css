@@ -1,0 +1,24 @@
+/* src/pages/RecipePage.css */
+.recipe-page {
+    padding: 20px;
+    text-align: left;
+  }
+  
+  .recipe-image {
+    width: 100%;
+    max-width: 600px;
+    margin: 20px 0;
+  }
+  
+  .recipe-page h1, .recipe-page h2 {
+    color: #333;
+  }
+  
+  .recipe-page ul, .recipe-page ol {
+    padding-left: 20px;
+  }
+  
+  .recipe-page p {
+    margin: 10px 0;
+  }
+  

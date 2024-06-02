@@ -1,12 +1,103 @@
-import { render, screen } from '@testing-library/react';
+// src/tests/unit/RecipePage.unit.test.tsx
+import { render, screen, waitFor } from '@testing-library/react';
+import axios from 'axios';
+import MockAdapter from 'axios-mock-adapter';
 import RecipePage from '../../pages/RecipePage';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
-test('renders recipe page message', () => {
-  render(
-    <BrowserRouter>
-      <RecipePage />
-    </BrowserRouter>
-  );
-  expect(screen.getByText(/Welcome to the Recipe List App/i)).toBeInTheDocument();
+const mock = new MockAdapter(axios);
+
+const recipeData = {
+  id: 1,
+  name: 'Classic Margherita Pizza',
+  ingredients: [
+    'Pizza dough',
+    'Tomato sauce',
+    'Fresh mozzarella cheese',
+    'Fresh basil leaves',
+    'Olive oil',
+    'Salt and pepper to taste'
+  ],
+  instructions: [
+    'Preheat the oven to 475°F (245°C).',
+    'Roll out the pizza dough and spread tomato sauce evenly.',
+    'Top with slices of fresh mozzarella and fresh basil leaves.',
+    'Drizzle with olive oil and season with salt and pepper.',
+    'Bake in the preheated oven for 12-15 minutes or until the crust is golden brown.',
+    'Slice and serve hot.'
+  ],
+  prepTimeMinutes: 20,
+  cookTimeMinutes: 15,
+  servings: 4,
+  difficulty: 'Easy',
+  cuisine: 'Italian',
+  caloriesPerServing: 300,
+  tags: ['Pizza', 'Italian'],
+  userId: 45,
+  image: 'https://cdn.dummyjson.com/recipe-images/1.webp',
+  rating: 4.6,
+  reviewCount: 3,
+  mealType: ['Dinner']
+};
+
+describe('RecipePage', () => {
+  afterEach(() => {
+    mock.reset();
+  });
+
+  it('fetches and displays recipe details', async () => {
+    mock.onGet('https://dummyjson.com/recipes/1').reply(200, recipeData);
+
+    render(
+      <BrowserRouter>
+        <Routes>
+          <Route path="/recipe/:id" element={<RecipePage />} />
+        </Routes>
+      </BrowserRouter>
+    );
+
+    // Simulate navigating to /recipe/1
+    window.history.pushState({}, 'Test page', '/recipe/1');
+
+    await waitFor(() => {
+      expect(screen.getByText('Loading...')).toBeInTheDocument();
+    });
+
+    await waitFor(() => {
+      expect(screen.getByText('Classic Margherita Pizza')).toBeInTheDocument();
+    });
+
+    expect(screen.getByText('Classic Margherita Pizza')).toBeInTheDocument();
+    expect(screen.getByText('Prep Time: 20 minutes')).toBeInTheDocument();
+    expect(screen.getByText('Cook Time: 15 minutes')).toBeInTheDocument();
+    expect(screen.getByText('Servings: 4')).toBeInTheDocument();
+    expect(screen.getByText('Difficulty: Easy')).toBeInTheDocument();
+    expect(screen.getByText('Italian')).toBeInTheDocument();
+    expect(screen.getByText('300')).toBeInTheDocument();
+    expect(screen.getByText('Pizza dough')).toBeInTheDocument();
+    expect(screen.getByText('Preheat the oven to 475°F (245°C).')).toBeInTheDocument();
+  });
+
+  it('handles error when fetching recipe details', async () => {
+    mock.onGet('https://dummyjson.com/recipes/1').reply(500);
+
+    render(
+      <BrowserRouter>
+        <Routes>
+          <Route path="/recipe/:id" element={<RecipePage />} />
+        </Routes>
+      </BrowserRouter>
+    );
+
+    // Simulate navigating to /recipe/1
+    window.history.pushState({}, 'Test page', '/recipe/1');
+
+    await waitFor(() => {
+      expect(screen.getByText('Loading...')).toBeInTheDocument();
+    });
+
+    await waitFor(() => {
+      expect(screen.getByText('Error fetching recipe')).toBeInTheDocument();
+    });
+  });
 });
