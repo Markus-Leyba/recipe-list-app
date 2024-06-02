@@ -67,18 +67,21 @@ The React Online Recipe Book is a web application that allows users to browse an
 
 #### 1. Clone Repo
 
-```git clone https://github.com/Markus-Leyba/recipe-list-app.git
+```
+git clone https://github.com/Markus-Leyba/recipe-list-app.git
 cd recipe-list-app
 ```
 
 #### 2. Install Dependencies
 
-``` yarn install
+``` 
+yarn install
 ```
 
 #### 3. Start the Development Server
 
-```yarn dev
+```
+yarn dev
 ```
 
 ## Usage
@@ -89,7 +92,8 @@ The application will be available at http://localhost:5173. You can browse recip
 
 Run all tests using Jest:
 
-```yarn test
+```
+yarn test
 ```
 
 ## Dependencies
@@ -105,7 +109,8 @@ The project uses several dependencies which are listed in the package.json file.
 
 ### package.json
 
-```{
+```
+{
   "name": "recipe-list-app",
   "private": true,
   "version": "0.0.0",
