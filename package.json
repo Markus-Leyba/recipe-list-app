@@ -11,11 +11,13 @@
     "test": "jest"
   },
   "dependencies": {
+    "@testing-library/user-event": "^14.5.2",
     "axios": "^1.7.2",
     "axios-mock-adapter": "^1.22.0",
     "jest-mock": "^29.7.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-infinite-scroll-component": "^6.1.0",
     "react-router-dom": "^6.23.1"
   },
   "devDependencies": {
