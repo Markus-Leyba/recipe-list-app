@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import RecipePage from '../pages/RecipePage';
+import RecipePage from '../../pages/RecipePage';
 import { BrowserRouter } from 'react-router-dom';
 
 test('renders recipe page message', () => {
