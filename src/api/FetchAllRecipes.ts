@@ -1,11 +1,19 @@
+// src/api/FetchAllRecipes.ts
 import axios from 'axios';
 
-export const fetchAllRecipes = async () => {
+const DEFAULT_URL = 'https://dummyjson.com/recipes';
+
+export const fetchAllRecipes = async (url: string = DEFAULT_URL) => {
   try {
-    const response = await axios.get('https://dummyjson.com/recipes');
+    const response = await axios.get(url);
     return response.data;
   } catch (error) {
-    console.error('Error fetching all recipes:', error);
-    throw error;
+    if (axios.isAxiosError(error)) {
+      console.error('Error fetching all recipes:', error.message);
+      throw error;
+    } else {
+      throw new Error('An unknown error occurred');
+    }
   }
 };
+
