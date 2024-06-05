@@ -1,9 +1,9 @@
-// src/tests/unit/RecipePage.unit.test.tsx
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen, waitFor, act } from '@testing-library/react';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import RecipePage from '../../pages/RecipePage';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import HomePage from '../../pages/HomePage';
 
 const mock = new MockAdapter(axios);
 
@@ -51,13 +51,19 @@ describe('RecipePage', () => {
     render(
       <BrowserRouter>
         <Routes>
+          <Route path="/" element={<div>Home</div>} />
           <Route path="/recipe/:id" element={<RecipePage />} />
         </Routes>
       </BrowserRouter>
     );
 
     // Simulate navigating to /recipe/1
-    window.history.pushState({}, 'Test page', '/recipe/1'); 
+    act(() => {
+      window.history.pushState({}, 'Test page', '/recipe/1');
+    });
+
+    // Debugging: Check if the URL is correct
+    console.log(window.location.pathname);
 
     await waitFor(() => {
       expect(screen.getByText('Loading...')).toBeInTheDocument();
@@ -84,13 +90,16 @@ describe('RecipePage', () => {
     render(
       <BrowserRouter>
         <Routes>
+          <Route path="/" element={<HomePage />} />
           <Route path="/recipe/:id" element={<RecipePage />} />
         </Routes>
       </BrowserRouter>
     );
 
     // Simulate navigating to /recipe/1
-    window.history.pushState({}, 'Test page', '/recipe/1');
+    act(() => {
+      window.history.pushState({}, 'Test page', '/recipe/1');
+    });
 
     await waitFor(() => {
       expect(screen.getByText('Loading...')).toBeInTheDocument();
