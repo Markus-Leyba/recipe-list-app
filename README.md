@@ -163,25 +163,24 @@ The project uses several dependencies which are listed in the package.json file.
 
 ## Bugs and Issues
 
-1. RecipePage has 1 integration test and 1 unit test that are still failing. Issues related to routing of test classes. 
-2. RecipePage results in unknown failed API calls
+1. RecipePage has 1 unit test that is still failing. 
+2. RecipePage results in warnings about duplicate keys. I suspect this being caused by how map function is being used. 
 
 ## Discussion/Reflection
 
-The Recipe List App project has been a significant learning experience, particularly in applying React and TDD methodologies. Despite not refactoring the code into smaller, reusable components, the architectural logic was carefully considered. Here’s an overview of the development process I took:
+The Recipe List App project has been a significant learning experience, particularly in applying React and TDD methodologies. Here’s an overview of the development process I took:
 
 1. Research and Setup: The initial phase involved selecting appropriate tools and setting up a stable development environment.
 2. Creation of Skeleton/Basic Page Classes: Establishing the basic structure for HomePage and RecipePage was crucial for defining the project’s layout and navigation.
 3. API Functionality: Integrating API functionality with Axios involved creating methods for handling requests and managing data efficiently.
 4. HomePage Development: The HomePage was developed with infinite scroll, requiring comprehensive integration tests to ensure smooth interaction with the API.
 5. RecipePage Development: The RecipePage focused on displaying detailed recipe information, with integration tests ensuring accurate data rendering and navigation.
+6. Refactoring: RecipePage and HomePage were broken down into reusable components and type classes where practical.
 
-A strict TDD approach was maintained throughout, with each step requiring successful unit tests before advancing. This rigorous testing ensured a robust and reliable codebase. While the code was not refactored into smaller components, the project has been a practical exercise in applying foundational React development and testing practices.
-
-Moving forward, I plan to further develop my skills in code refactoring and component-based design to tackle more complex challenges with confidence.
+A TDD approach was maintained throughout, with each step requiring successful unit tests before advancing (except for the 1 unit test for RecipePage as time was limited.)
 
 ## Next steps (when I have more time)
 
-- refactor the code into reusable components
-- UI testing with Cypress
-- Deploy on Netlify
+- UI testing with Cypress.
+- Optimize performance.
+- Deploy on Netlify.
