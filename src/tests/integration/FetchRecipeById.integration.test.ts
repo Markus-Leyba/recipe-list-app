@@ -1,6 +1,6 @@
 // src/tests/integration/FetchRecipeById.integration.test.ts
 import { fetchRecipeById } from '../../api/FetchRecipeById';
-import { Recipe } from '../../types/Recipe';
+import { Recipe } from '../../types/recipes/Recipe';
 import axios from 'axios';
 
 describe('fetchRecipeById Integration Test', () => {

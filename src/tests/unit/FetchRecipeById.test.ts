@@ -2,7 +2,7 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import { fetchRecipeById } from '../../api/FetchRecipeById';
-import { Recipe } from '../../types/Recipe';
+import { Recipe } from '../../types/recipes/Recipe';
 
 describe('fetchRecipeById', () => {
   const mock = new MockAdapter(axios);

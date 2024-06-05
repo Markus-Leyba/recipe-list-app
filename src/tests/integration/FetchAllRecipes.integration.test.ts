@@ -1,6 +1,6 @@
 // src/tests/integration/fetchAllRecipes.integration.test.ts
 import { fetchAllRecipes } from '../../api/FetchAllRecipes';
-import { Recipe } from '../../types/Recipe';
+import { Recipe } from '../../types/recipes/Recipe';
 import { AxiosError } from 'axios';
 
 describe('fetchAllRecipes Integration Test', () => {

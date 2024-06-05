@@ -57,7 +57,7 @@ describe('RecipePage', () => {
     );
 
     // Simulate navigating to /recipe/1
-    window.history.pushState({}, 'Test page', '/recipe/1');
+    window.history.pushState({}, 'Test page', '/recipe/1'); 
 
     await waitFor(() => {
       expect(screen.getByText('Loading...')).toBeInTheDocument();

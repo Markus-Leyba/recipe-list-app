@@ -1,53 +1,35 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
 import './RecipePage.css';
-
-interface Recipe {
-  id: number;
-  name: string;
-  ingredients: string[];
-  instructions: string[];
-  prepTimeMinutes: number;
-  cookTimeMinutes: number;
-  servings: number;
-  difficulty: string;
-  cuisine: string;
-  caloriesPerServing: number;
-  tags: string[];
-  userId: number;
-  image: string;
-  rating: number;
-  reviewCount: number;
-  mealType: string[];
-}
+import { fetchRecipeById } from '../api/FetchRecipeById';
+import { Recipe } from '../types/recipes/Recipe'; 
 
 const RecipePage: React.FC = () => {
-  const { id } = useParams<{ id: string }>();
-  const [recipe, setRecipe] = useState<Recipe | null>(null);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    fetchRecipeById(Number(id));
-  }, [id]);
-
-  const fetchRecipeById = async (id: number) => {
-    try {
-      const response = await axios.get(`https://dummyjson.com/recipes/${id}`);
-      setRecipe(response.data);
-    } catch (error) {
-      console.error('Error fetching recipe:', error);
-      setError('Error fetching recipe');
+    const { id } = useParams<{ id: string }>();
+    const [recipe, setRecipe] = useState<Recipe | null>(null);
+    const [error, setError] = useState<string | null>(null);
+  
+    useEffect(() => {
+      const fetchData = async () => {
+        try {
+          const recipeData = await fetchRecipeById(Number(id));
+          setRecipe(recipeData);
+        } catch (error) {
+          console.error('Error fetching recipe:', error);
+          setError('Error fetching recipe');
+        }
+      };
+  
+      fetchData();
+    }, [id]);
+  
+    if (error) {
+      return <div>{error}</div>;
     }
-  };
-
-  if (error) {
-    return <div>{error}</div>;
-  }
-
-  if (!recipe) {
-    return <div>Loading...</div>;
-  }
+  
+    if (!recipe) {
+      return <div>Loading...</div>;
+    }
 
   return (
     <div className="recipe-page">
