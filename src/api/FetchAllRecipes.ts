@@ -3,7 +3,9 @@ import axios from 'axios';
 
 const DEFAULT_URL = 'https://dummyjson.com/recipes';
 
-export const fetchAllRecipes = async (url: string = DEFAULT_URL) => {
+export const fetchAllRecipes = async (page: number) => {
+  const url = `${DEFAULT_URL}?limit=10&skip=${(page - 1) * 10}`;
+  console.log('url:', url)
   try {
     const response = await axios.get(url);
     return response.data;

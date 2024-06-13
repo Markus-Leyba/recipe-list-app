@@ -87,19 +87,19 @@ describe('fetchAllRecipes', () => {
   it('should fetch all recipes successfully', async () => {
     mock.onGet('https://dummyjson.com/recipes').reply(200, recipesData);
 
-    const data = await fetchAllRecipes();
+    const data = await fetchAllRecipes(1);
     expect(data).toEqual(recipesData);
   });
 
   it('should handle 404 error when endpoint is not found', async () => {
     mock.onGet('https://dummyjson.com/invalid-endpoint').reply(404);
 
-    await expect(fetchAllRecipes('https://dummyjson.com/invalid-endpoint')).rejects.toThrow('Request failed with status code 404');
+    await expect(fetchAllRecipes(1)).rejects.toThrow('Request failed with status code 404');
   });
 
   it('should handle network error', async () => {
     mock.onGet('https://dummyjson.com/recipes').networkError();
 
-    await expect(fetchAllRecipes()).rejects.toThrow('Network Error');
+    await expect(fetchAllRecipes(1)).rejects.toThrow('Network Error');
   });
 });

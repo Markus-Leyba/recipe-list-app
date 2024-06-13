@@ -1,11 +1,11 @@
 // src/tests/integration/fetchAllRecipes.integration.test.ts
 import { fetchAllRecipes } from '../../api/FetchAllRecipes';
 import { Recipe } from '../../types/recipes/Recipe';
-import { AxiosError } from 'axios';
+
 
 describe('fetchAllRecipes Integration Test', () => {
   it('should fetch all recipes from the actual API and validate their structure', async () => {
-    const data = await fetchAllRecipes();
+    const data = await fetchAllRecipes(1);
     
     // Basic checks
     expect(data).toHaveProperty('recipes');
@@ -48,18 +48,5 @@ describe('fetchAllRecipes Integration Test', () => {
       expect(typeof recipe.reviewCount).toBe('number');
       expect(Array.isArray(recipe.mealType)).toBe(true);
     });
-  });
-
-  it('should handle errors from the API', async () => {
-    const invalidUrl = 'https://dummyjson.com/invalid-endpoint';
-    try {
-      await fetchAllRecipes(invalidUrl);
-    } catch (error) {
-      if (error instanceof AxiosError) {
-        expect(error.message).toContain('Request failed with status code 404');
-      } else {
-        throw error;
-      }
-    }
   });
 });

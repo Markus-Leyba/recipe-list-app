@@ -4,6 +4,7 @@ import axios from 'axios';
 import { RecipeSummary } from '../types/recipes/RecipeSummary'; 
 import RecipeList from '../components/RecipeList'; 
 import './HomePage.css';
+import { fetchAllRecipes } from '../api/FetchAllRecipes';
 
 const HomePage: React.FC = () => {
   const [recipes, setRecipes] = useState<RecipeSummary[]>([]);
@@ -17,9 +18,10 @@ const HomePage: React.FC = () => {
 
   const fetchRecipes = async (page: number) => {
     try {
-      const response = await axios.get(`https://dummyjson.com/recipes?limit=10&skip=${(page - 1) * 10}`);
-      setRecipes((prevRecipes) => [...prevRecipes, ...response.data.recipes]);
-      if (response.data.recipes.length === 0) setHasMore(false);
+      const response = await fetchAllRecipes(page);
+      console.log(response)
+      setRecipes((prevRecipes) => [...prevRecipes, ...response.recipes]);
+      if (response.recipes.length === 0) setHasMore(false);
     } catch (error) {
       if (axios.isAxiosError(error)) {
         setError(`Error fetching recipes: ${error.message}`);
